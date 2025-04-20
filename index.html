@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coldlink Login</title>
+</head>
+<body>
+  <h2>Login with Email</h2>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <br>
+  <button id="signup">Sign Up</button>
+  <button id="login">Log In</button>
+
+  <script type="module">
+    // Firebase SDK imports from CDN
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-auth.js";
+
+    // Your Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyA8uNkqmzNOAcDsqD9Ln01rnz_iRr1TC5U",
+      authDomain: "coldlink-project-sk.firebaseapp.com",
+      projectId: "coldlink-project-sk",
+      storageBucket: "coldlink-project-sk.firebasestorage.app",
+      messagingSenderId: "720771149753",
+      appId: "1:720771149753:web:39ce06992577cf83d45068",
+      measurementId: "G-JNLWNT9C8G"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Sign Up button
+    document.getElementById("signup").addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      createUserWithEmailAndPassword(auth, email, pass)
+        .then((cred) => {
+          console.log("Signed up:", cred.user.email);
+          alert("Signed up as " + cred.user.email);
+        })
+        .catch((err) => alert(err.message));
+    });
+
+    // Log In button
+    document.getElementById("login").addEventListener("click", () => {
+      const email = document.getElementById("email").value;
+      const pass = document.getElementById("password").value;
+      signInWithEmailAndPassword(auth, email, pass)
+        .then((cred) => {
+          console.log("Logged in:", cred.user.email);
+          alert("Logged in as " + cred.user.email);
+        })
+        .catch((err) => alert(err.message));
+    });
+  </script>
+</body>
+</html>
